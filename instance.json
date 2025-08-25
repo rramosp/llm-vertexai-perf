@@ -1,0 +1,6 @@
+{                                
+   "prompt": "**IGNORE THIS TEXT. IT WILL BE REPLACE WITH RANDOM QUESTIONS FROM questions.json.",
+   "stream": false,
+   "max_tokens": 40,
+   "temperature": 0.7
+}
