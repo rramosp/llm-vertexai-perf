@@ -2,8 +2,10 @@
 
 ## instructions
 
+We use  [locust.io](https://locust.io/) to load test an LLM exposed through an endpoint.
+
 in `locust.sh` specify:
-- your vertex-ai endpoint
+- your vertex-ai endpoint on `ENDPOINT`
 - the number of concurrent users on `LOCUST_USERS`
 - the duration of the experiment on `LOCUST_RUN_TIME`
 
@@ -20,9 +22,18 @@ Then, just run the script, and open `http://localhost:8089`
 > sh locust.sh
 ```
 
-## results with DeepSeekV3 on multihost with 2 nodes, 8 H100s per node
+## Experiments with DeepSeekV3
 
-See the locust monitor screen for each experiment under folder `screenshots`
+**Experiment design**
+
+- DeepSeek V3 deployed from Vertexi AI Model Garden [[see model card page on vertex ai](https://console.cloud.google.com/vertex-ai/publishers/deepseek-ai/model-garden/deepseek-v3-1)] on multihost with 2 nodes, 8 H100s per node
+- Using 1, 5, 50 and 100 concurrent users
+- Restricting `max_output_tokens` to 20 and 40
+- Randomly selecting a question from `questions.json` at each request
+
+**Results**
+
+See locust monitor screenshots for each experiment under folder `screenshots`
 
 - **msTOTAL**: Latency, total time to serve each request **at p95**
 - **msNTPOT**: normalized time per output token = latency / number_of_outpu_tokens **at P95**
@@ -32,12 +43,10 @@ See the locust monitor screen for each experiment under folder `screenshots`
 ```
 number of
 concurrent                
-users              20 output tokens                          40 output tokens
+users              20 max output tokens                      40 max output tokens
 
 1                  900 msTOTAL  /  45 msNTPOT / 0.8  RPS     1400 msTOTAL /  35 msNTPOT / 0.5  RPS
 5                  1500 msTOTAL /  75 msNTPOT / 2.5  RPS     2400 msTOTAL /  60 msNTPOT / 2.0  RPS 
 50                 3000 msTOTAL / 150 msNTPOT / 15.0 RPS     5000 msTOTAL / 125 msNTPOT / 10.0 RPS
 100                4800 msTOTAL / 240 msNTPOT / 20.0 RPS     7800 msTOTAL / 195 msNTPOT / 15.0 RPS
 ```
-
-
