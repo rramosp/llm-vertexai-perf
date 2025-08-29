@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # set the following two if not set in environment
+export ENDPOINT_ID=6734693438081466368
+export PROJECT_ID=615780545876
 
-export ENDPOINT=https://145364233285009408.us-east5-615780545876.prediction.vertexai.goog/v1/projects/615780545876/locations/us-east5/endpoints/145364233285009408:rawPredict
-export LOCUST_USERS=100
+export ENDPOINT=https://${ENDPOINT_ID}.us-east5-${PROJECT_ID}.prediction.vertexai.goog/v1/projects/${PROJECT_ID}/locations/us-east5/endpoints/${ENDPOINT_ID}:rawPredict
+export LOCUST_USERS=1
 export LOCUST_RUN_TIME=1m
 export LOCUST_SPAWN_RATE=10
 export LOCUST_HOST=localhost

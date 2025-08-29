@@ -50,3 +50,25 @@ users              20 max output tokens                      40 max output token
 50                 3000 msTOTAL / 150 msNTPOT / 15.0 RPS     5000 msTOTAL / 125 msNTPOT / 10.0 RPS
 100                4800 msTOTAL / 240 msNTPOT / 20.0 RPS     7800 msTOTAL / 195 msNTPOT / 15.0 RPS
 ```
+## Experiments with Llama4 - Scout
+
+**Experiment design**
+
+- Llama 4 Scout deployed from Vertexi AI Model Garden [[see model card page on vertex ai](https://console.cloud.google.com/vertex-ai/publishers/meta/model-garden/llama4)] on multihost with 2 nodes, 8 H100s per node
+- Using 1, 5, 50 and 100 concurrent users
+- Restricting `max_output_tokens` to 20 and 40
+- Randomly selecting a question from `questions.json` at each request
+
+**Results**
+
+
+```
+number of
+concurrent                
+users              20 max output tokens                      40 max output tokens
+
+1                  250 msTOTAL / 12 msNTPOT / 1.2   RPS      500 msTOTAL / 12 msNTPOT / 1.0  RPS
+5                  280 msTOTAL / 14 msNTPOT / 14.0  RPS      500 msTOTAL / 12 msNTPOT / 10.0 RPS 
+50                 380 msTOTAL / 19 msNTPOT / 60.0  RPS      750 msTOTAL / 19 msNTPOT / 40.0 RPS
+100                400 msTOTAL / 20 msNTPOT / 110.0 RPS      850 msTOTAL / 21 msNTPOT / 75.0 RPS
+```
